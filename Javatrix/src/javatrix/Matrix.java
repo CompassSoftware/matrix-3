@@ -5,7 +5,7 @@ public class Matrix {
 	private double[][] matArray;
 	
 	/**
-	 * @param matArray
+	 * @param matArray Joseph checking in
 	 */
 	public Matrix(double[][] matArray) {
 		double[][] array = new double[matArray.length][matArray[0].length];
