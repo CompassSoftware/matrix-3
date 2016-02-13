@@ -22,6 +22,28 @@ public class Matrix {
 		
 		this.matArray = array;
 	}
+	
+	/**
+	 * Constructs a m-by-n matrix of zeros.
+	 * 
+	 * @param m row length
+	 * @paran n column length
+	 */
+	public Matrix(int m, int n) throws NegativeArraySizeException
+	{
+		try {
+			double[][] zeroArray = new double[m][n];
+			for (int i = 0; i < zeroArray.length; i++)
+			{
+				for (int j = 0; j < zeroArray[].length; j++)
+				{
+					zeroArray[i][j] = 0.0;
+				}
+			}
+		} catch (NegativeArraySizeException ex) {
+			System.out.println("Array size must not be negative");
+		}		
+	}
 
 	
 	
