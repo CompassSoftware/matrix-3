@@ -35,7 +35,7 @@ public class Matrix {
 			double[][] zeroArray = new double[m][n];
 			for (int i = 0; i < zeroArray.length; i++)
 			{
-				for (int j = 0; j < zeroArray[].length; j++)
+				for (int j = 0; j < zeroArray[0].length; j++)
 				{
 					zeroArray[i][j] = 0.0;
 				}
@@ -44,7 +44,5 @@ public class Matrix {
 			System.out.println("Array size must not be negative");
 		}		
 	}
-
-	
 	
 }
