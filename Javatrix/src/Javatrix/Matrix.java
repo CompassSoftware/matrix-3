@@ -112,5 +112,10 @@ checking arguments
     public void set(int i, int j, double val)
     {
         matArray[i][j] = val;
+    }    
+    public double[][] getArray()
+    {
+    	int i = 0;
+    	return matArray;
     }
 }
