@@ -113,4 +113,9 @@ checking arguments
     {
         matArray[i][j] = val;
     }
+    
+    public double[][] getArray()
+    {
+    	return matArray;
+    }
 }

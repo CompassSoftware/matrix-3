@@ -59,7 +59,7 @@ public class Testtrix {
 				{0.0, 0.0}
 				};
 		Matrix zero = new Matrix(2,2);
-		assertArrayEquals(source, zero);
+		assertArrayEquals(source, zero.getArray());
 	}
 	
 	@Test
