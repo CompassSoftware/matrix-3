@@ -67,6 +67,30 @@ checking arguments
     }
     
     /**
+     * Constructs a m-by-n matrix of s.
+     *
+     * @param m row length
+     * @param n column length
+     * @param s the double the array is to be filled with
+     */
+    public Matrix(int m, int n, double s) throws NegativeArraySizeException
+    {
+        try {
+            double[][] zeroArray = new double[m][n];
+            for (int i = 0; i < zeroArray.length; i++)
+            {
+                for (int j = 0; j < zeroArray[0].length; j++)
+                {
+                    zeroArray[i][j] = s;
+                }
+            }
+            matArray = zeroArray;
+        } catch (NegativeArraySizeException ex) {
+            System.out.println("Array size must not be negative");
+        }        
+    }
+    
+    /**
      * Gets the value at i, j
      *
      * @param i row
