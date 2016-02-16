@@ -116,6 +116,7 @@ checking arguments
     }       
     public double[][] getArray()
     {
+    	
     	return matArray;
     }
 }
