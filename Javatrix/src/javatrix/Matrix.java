@@ -1,4 +1,4 @@
-package javatrix;
+package Javatrix;
 import java.lang.IllegalArgumentException;
 
 public class Matrix {
@@ -60,6 +60,7 @@ checking arguments
                     zeroArray[i][j] = 0.0;
                 }
             }
+            matArray = zeroArray;
         } catch (NegativeArraySizeException ex) {
             System.out.println("Array size must not be negative");
         }        
