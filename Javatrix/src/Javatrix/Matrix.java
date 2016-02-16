@@ -6,7 +6,7 @@ public class Matrix {
     private double[][] matArray;
     
     /**
-     * Constructs a matrix from an existing 2D array.
+     * Constructs a matrix from an existing 2D array. cnah Merge
      *
      * @param matArray source matrix
      */
@@ -116,6 +116,7 @@ checking arguments
     
     public double[][] getArray()
     {
+    	
     	return matArray;
     }
 }
