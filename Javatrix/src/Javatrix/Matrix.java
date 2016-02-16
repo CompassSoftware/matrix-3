@@ -6,7 +6,7 @@ public class Matrix {
     private double[][] matArray;
     
     /**
-     * Constructs a matrix from an existing 2D array
+     * Constructs a matrix from an existing 2D array.
      *
      * @param matArray source matrix
      */
