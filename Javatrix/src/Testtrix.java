@@ -1,5 +1,5 @@
 import Javatrix.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class Testtrix {
@@ -49,6 +49,28 @@ public class Testtrix {
 		mat.set(2, 1, val);
 		assertEquals(mat.get(2, 1), val, 0);
 		assertEquals(source[2][1], 7, 0);
+	}
+	
+	@Test
+	public void testConstructZerosMatrix()
+	{
+		double[][] source = {
+				{0.0, 0.0},
+				{0.0, 0.0}
+				};
+		Matrix zero = new Matrix(2,2);
+		assertArrayEquals(source, zero);
+	}
+	
+	@Test
+	public void testConstructSMatrix()
+	{
+		double[][] source = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		Matrix s = new Matrix(2, 2, 1.0);
+		assertArrayEquals(source, s);
 	}
 	
 }
