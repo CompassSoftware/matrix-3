@@ -118,4 +118,9 @@ checking arguments
     	int i = 0;
     	return matArray;
     }
+    
+    public double[][] getArray()
+    {
+    	return matArray;
+    }
 }
