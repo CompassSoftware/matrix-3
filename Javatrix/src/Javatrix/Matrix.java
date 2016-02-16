@@ -6,9 +6,10 @@ public class Matrix {
     private double[][] matArray;
     
     /**
-     * Constructs a matrix from an existing 2D array.
+     * Constructs a matrix from an existing 2D array.test for merge
      *
      * @param matArray source matrix
+     * 
      */
     public Matrix(double[][] matArray) throws IllegalArgumentException{
         double[][] array = new double[matArray.length][matArray[0].length];
@@ -112,13 +113,7 @@ checking arguments
     public void set(int i, int j, double val)
     {
         matArray[i][j] = val;
-    }    
-    public double[][] getArray()
-    {
-    	int i = 0;
-    	return matArray;
-    }
-    
+    }       
     public double[][] getArray()
     {
     	return matArray;
