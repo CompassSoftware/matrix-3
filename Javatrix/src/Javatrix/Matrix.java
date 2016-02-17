@@ -6,19 +6,19 @@ public class Matrix {
     private double[][] matArray;
     
     /**
-     * Constructs a matrix from an existing 2D array. cnah Merge
+     * Constructs a matrix from an existing 2D array.
      *
-     * @param matArray source matrix
+     * @param source source array
      */
-    public Matrix(double[][] matArray) throws IllegalArgumentException{
-        double[][] array = new double[matArray.length][matArray[0].length];
-        int len = matArray[0].length;
-        for (int i = 0; i < matArray.length; i++) {
-            if (matArray[i].length != len) {
+    public Matrix(double[][] source) throws IllegalArgumentException{
+        double[][] array = new double[source.length][source[0].length];
+        int len = source[0].length;
+        for (int i = 0; i < source.length; i++) {
+            if (source[i].length != len) {
                 throw new IllegalArgumentException();
             }
-            for (int j = 0; j < matArray[0].length; j++) {
-                array[i][j] = matArray[i][j];
+            for (int j = 0; j < source[0].length; j++) {
+                array[i][j] = source[i][j];
             }
         }
         
@@ -114,9 +114,30 @@ checking arguments
         matArray[i][j] = val;
     }
     
+    /**
+     * Gives access to the internal array of the matrix
+     * 
+     * @return a reference to the internal array
+     */
     public double[][] getArray()
     {
     	
     	return matArray;
+    }
+    
+    /**
+     * Creates a deep copy of the internal array of the matrix
+     * 
+     * @return a deep copy of the internal array
+     */
+    public double[][] getArrayCopy()
+    {
+        double[][] array = new double[matArray.length][matArray[0].length];
+        for (int i = 0; i < matArray.length; i++) {
+            for (int j = 0; j < matArray[0].length; j++) {
+                array[i][j] = matArray[i][j];
+            }
+        }
+        return array;
     }
 }
