@@ -27,7 +27,7 @@ public class Matrix {
     
     /**
      * Constructs a matrix quickly from an existing 2D array without
-checking arguments
+	 * checking arguments
      *
      * @param matArray source matrix
      * @param m row length
@@ -88,6 +88,33 @@ checking arguments
         } catch (NegativeArraySizeException ex) {
             System.out.println("Array size must not be negative");
         }        
+    }
+    
+   /**
+    * Constructs a matrix from a one-dimensional packed array
+    *  
+    *  
+    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
+    * @param m - Number of rows.
+    * 
+    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
+    */
+    
+    public Matrix(double vals[], int m)
+    {
+        if (m == 0 || vals.length%m != 0)
+        {
+        	throw new IllegalArgumentException("Array length must be a multiple of m.");
+        }
+        int cols = vals.length;
+        matArray = new double[m][cols];
+        for (int a = 0; a < m; a++) 
+        {
+        	for (int b = 0; b < cols; b++) 
+        	{
+        		matArray[a][b] = vals[a+b*m];
+            }
+        }
     }
     
     /**
