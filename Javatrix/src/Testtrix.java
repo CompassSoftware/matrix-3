@@ -69,7 +69,7 @@ public class Testtrix {
 		
 		// Check that matrix was created correctly
 		int n = mat.getRowDimension();
-		int m = mat.getColDimension();
+		int m = mat.getColumnDimension();
 		assertEquals(n, source.length, 0);
 		assertEquals(m, source[0].length, 0);
 		for (int i = 0; i < n; i++)
@@ -114,7 +114,7 @@ public class Testtrix {
 		
 		// Check that matrix was created correctly
 		assertEquals(n, mat.getRowDimension(), 0);
-		assertEquals(m, mat.getColDimension(), 0);
+		assertEquals(m, mat.getColumnDimension(), 0);
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < m; j++)
