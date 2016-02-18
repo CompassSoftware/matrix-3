@@ -1,6 +1,12 @@
 import Javatrix.*;
 import static org.junit.Assert.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
 public class Testtrix {
 	/*
@@ -16,6 +22,25 @@ public class Testtrix {
 	b.print(9,4);
     }
     */
+
+	private PrintStream oldOut;
+	private ByteArrayOutputStream testOut;
+	
+	@Before
+	public void setup()
+	{
+		oldOut = System.out;
+		testOut = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(testOut));
+	}
+	
+	@After
+	public void reset()
+	{
+		System.out.flush();
+		testOut.flush();
+		System.setOut(oldOut);
+	}
 
 	@Test
 	public void testGetSet() {
@@ -42,13 +67,66 @@ public class Testtrix {
 				};
 		double val = 15;
 		Matrix mat = new Matrix(source);
+		
 		// Check that matrix was created correctly
-		assertEquals(mat.get(0, 0), source[0][0], 0);
-		assertEquals(mat.get(3, 2), source[3][2], 0);
+		int n = Matrix.getRowDimension();
+		int m = Matrix.getColDimension();
+		assertEquals(n, source.length, 0);
+		assertEquals(m, source[0].length, 0);
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < m; j++)
+			{
+				assertEquals(mat.get(i, j), source[i][j], 0);
+			}
+		}
+		
 		// Check that changing matrix does not change original array
 		mat.set(2, 1, val);
-		assertEquals(mat.get(2, 1), val, 0);
-		assertEquals(source[2][1], 7, 0);
+		assertNotEquals(mat.get(2, 1), source[2][1], 0);
+		
+		// Check invalid matrix creation
+		try
+		{
+			double[][] src = {{0, 0, 0}, {0, 0}};
+			Matrix badMat = new Matrix(src);
+		}
+		catch (IllegalArgumentException e)
+		{
+		}
+		catch (Exception e)
+		{
+			assert(false);
+		}
+	}
+	
+	@Test
+	public void testConstructFrom2DArrayFast() {
+		double[][] source = {
+				{0, 1, 2, 12},
+				{3, 4, 5, 13},
+				{6, 7, 8, 14},
+				{9, 10, 11, 15}
+				};
+		int n = 3;
+		int m = 4;
+		double val = 15;
+		Matrix mat = new Matrix(source, n, m);
+		
+		// Check that matrix was created correctly
+		assertEquals(n, Matrix.getRowDimension(), 0);
+		assertEquals(m, Matrix.getColDimension(), 0);
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < m; j++)
+			{
+				assertEquals(mat.get(i, j), source[i][j], 0);
+			}
+		}
+		
+		// Check that changing matrix does not change original array
+		mat.set(2, 1, val);
+		assertNotEquals(mat.get(2, 1), source[2][1], 0);
 	}
 	
 	@Test
@@ -108,4 +186,9 @@ public class Testtrix {
 		assertEquals(org, copy);
 	}
 	
+	public void testPrint()
+	{
+		String output = testOut.toString();
+		assert(output.equals("test"));
+	}
 }

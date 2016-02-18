@@ -236,4 +236,14 @@ public class Matrix {
     	}
     	return ident;
     }
+
+    /**
+     * Print matrix
+     * @param w Column width
+     * @param d Number of digits after the decimal
+     */
+    public void print(int w, int d)
+    {
+    	System.out.println("test");
+    }
 }
