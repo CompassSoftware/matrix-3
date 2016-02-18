@@ -302,4 +302,29 @@ public class Matrix {
     	}
     	return ident;
     }
+    
+    /**
+     * Matrix Trace
+     * 
+     * @return Sum of the diagonal elements.
+     */
+    
+    public double trace()
+    {
+    	double traceThis = 0.0;
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	int min = 0;
+    	
+    	if (m < n)
+    		{min = m;}
+    	else 
+    		{min = n;}
+    	
+    	for (int a = 0; a < min; a++)
+    	{
+    		traceThis += matArray[a][a];
+    	}
+    	return traceThis;
+    }
 }
