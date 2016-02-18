@@ -213,4 +213,27 @@ public class Matrix {
     	return super.clone();
     }
     
+    /**
+     * Generate identity matrix
+     * 
+     * @param m - # of rows
+     * @param n - # of columns
+     * @return 	  An m-by-n matrix with ones on the diagonal and zeros elsewhere.
+     */
+    public static Matrix identity(int m, int n)
+    {
+    	Matrix ident = new Matrix(m,n);
+    	double[][] fillErUp = ident.getArray();
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			if (a == b)
+    				fillErUp[a][b] = 1.0;
+    			else
+    				fillErUp[a][b] = 0.0;
+    		}
+    	}
+    	return ident;
+    }
 }
