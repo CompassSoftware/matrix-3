@@ -6,19 +6,19 @@ public class Matrix {
     private double[][] matArray;
     
     /**
-     * Constructs a matrix from an existing 2D array.
+     * Constructs a matrix from an existing 2D array
      *
-     * @param source source array
+     * @param matArray source matrix
      */
-    public Matrix(double[][] source) throws IllegalArgumentException{
-        double[][] array = new double[source.length][source[0].length];
-        int len = source[0].length;
-        for (int i = 0; i < source.length; i++) {
-            if (source[i].length != len) {
+    public Matrix(double[][] matArray) throws IllegalArgumentException{
+        double[][] array = new double[matArray.length][matArray[0].length];
+        int len = matArray[0].length;
+        for (int i = 0; i < matArray.length; i++) {
+            if (matArray[i].length != len) {
                 throw new IllegalArgumentException();
             }
-            for (int j = 0; j < source[0].length; j++) {
-                array[i][j] = source[i][j];
+            for (int j = 0; j < matArray[0].length; j++) {
+                array[i][j] = matArray[i][j];
             }
         }
         
@@ -140,4 +140,50 @@ checking arguments
         }
         return array;
     }
+    
+    /**
+     * Constructs a matrix from a copy of a 2-D array.
+     * 
+     * @param A The matrix to copy.
+     * @return matrix Returns a copy of the matrix.
+     */
+    public static Matrix constructWithCopy(double[][] A)
+    {
+    	double[][] copyArray = new double[A.length][A[0].length];
+    	
+    	for (int i = 0; i < A.length; i++)
+    	{
+            for (int j = 0; j < A[0].length; j++)
+            {
+                copyArray[i][j] = A[i][j];
+            }
+        }
+    	
+    	Matrix copyMatrix = new Matrix(copyArray);
+    	
+        return copyMatrix;
+    }
+    
+    /**
+     * Makes a deep copy of a matrix.
+     * 
+     * @return Matrix A deep copy the matrix.
+     */
+    public Matrix copy()
+    {
+    	Matrix copyMatrix = new Matrix(this.matArray);
+    	
+        return copyMatrix;
+    }
+    
+    /**
+     * Clones the Matrix object.
+     * 
+     * @return Matrix A clone of the matrix.
+     */
+    public Matrix clone()
+    {
+    	return super.clone();
+    }
+    
 }

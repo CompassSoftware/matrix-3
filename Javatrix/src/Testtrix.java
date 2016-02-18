@@ -14,7 +14,7 @@ public class Testtrix {
 	x.print(9,4);
 	System.out.println("=");
 	b.print(9,4);
-    }Test for matrix second time
+    }
     */
 
 	@Test
@@ -33,37 +33,6 @@ public class Testtrix {
 	}
 	
 	@Test
-	public void testGetArray() {
-		Matrix mat = new Matrix(3, 3);
-		double[][] ar = mat.getArray();
-		assertEquals(mat.get(1, 1), ar[1][1], 0);
-		// Check that changing a value changes the internal array
-		ar[1][1] = 5;
-		assertEquals(mat.get(1, 1), ar[1][1], 0);
-	}
-	
-	@Test
-	public void testGetArrayCopy() {
-		// Create matrix
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8},
-				{9, 10, 11}
-				};
-		double val = 15;
-		Matrix mat = new Matrix(source);
-		double[][] arrayA = mat.getArray();
-		double[][] arrayB = mat.getArrayCopy();
-		// Check that matrix was created correctly
-		assertEquals(arrayA[0][0], arrayB[0][0], 0);
-		assertEquals(arrayA[3][2], arrayA[3][2], 0);
-		// Check that changing matrix does not change original array
-		arrayA[2][1] = val;
-		assertNotEquals(arrayA[2][1], arrayB[2][1], 0);
-	}
-	
-	@Test
 	public void testConstructFrom2DArray() {
 		double[][] source = {
 				{0, 1, 2},
@@ -78,7 +47,8 @@ public class Testtrix {
 		assertEquals(mat.get(3, 2), source[3][2], 0);
 		// Check that changing matrix does not change original array
 		mat.set(2, 1, val);
-		assertNotEquals(mat.get(2, 1), source[2][1], 0);
+		assertEquals(mat.get(2, 1), val, 0);
+		assertEquals(source[2][1], 7, 0);
 	}
 	
 	@Test
@@ -89,7 +59,7 @@ public class Testtrix {
 				{0.0, 0.0}
 				};
 		Matrix zero = new Matrix(2,2);
-		assertArrayEquals(source, zero.getArray());
+		assertArrayEquals(source, zero);
 	}
 	
 	@Test
@@ -100,7 +70,42 @@ public class Testtrix {
 				{1.0, 1.0}
 				};
 		Matrix s = new Matrix(2, 2, 1.0);
-		assertArrayEquals(source, s.getArray());
+		assertArrayEquals(source, s);
+	}
+	
+	@Test
+	public void testConstructWithCopy()
+	{
+		double[][] org = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		Matrix copy = new Matrix(org);
+		assertArrayEquals(org, copy.getArray());
+	}
+	
+	@Test
+	public void testCopy()
+		double[][] org = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		Matrix o1 = new Matrix(org);
+		Matrix o2 = o1.copy();
+		assertEquals(org, copy);
+	}
+	
+	@Test
+	public void testClone()
+	{
+		double[][] org = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		Matrix org = new Matrix(org);
+		Matrix clone = org.clone();
+		org.set(0, 0, 0.0);
+		assertEquals(org, copy);
 	}
 	
 }
