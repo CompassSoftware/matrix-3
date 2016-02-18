@@ -38,7 +38,6 @@ public class Testtrix {
 	public void reset()
 	{
 		System.out.flush();
-		testOut.flush();
 		System.setOut(oldOut);
 	}
 
@@ -69,8 +68,8 @@ public class Testtrix {
 		Matrix mat = new Matrix(source);
 		
 		// Check that matrix was created correctly
-		int n = Matrix.getRowDimension();
-		int m = Matrix.getColDimension();
+		int n = mat.getRowDimension();
+		int m = mat.getColDimension();
 		assertEquals(n, source.length, 0);
 		assertEquals(m, source[0].length, 0);
 		for (int i = 0; i < n; i++)
@@ -114,8 +113,8 @@ public class Testtrix {
 		Matrix mat = new Matrix(source, n, m);
 		
 		// Check that matrix was created correctly
-		assertEquals(n, Matrix.getRowDimension(), 0);
-		assertEquals(m, Matrix.getColDimension(), 0);
+		assertEquals(n, mat.getRowDimension(), 0);
+		assertEquals(m, mat.getColDimension(), 0);
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < m; j++)
@@ -137,7 +136,7 @@ public class Testtrix {
 				{0.0, 0.0}
 				};
 		Matrix zero = new Matrix(2,2);
-		assertArrayEquals(source, zero);
+		assertArrayEquals(source, zero.getArray());
 	}
 	
 	@Test
@@ -148,7 +147,7 @@ public class Testtrix {
 				{1.0, 1.0}
 				};
 		Matrix s = new Matrix(2, 2, 1.0);
-		assertArrayEquals(source, s);
+		assertArrayEquals(source, s.getArray());
 	}
 	
 	@Test
@@ -164,13 +163,14 @@ public class Testtrix {
 	
 	@Test
 	public void testCopy()
+	{
 		double[][] org = {
 				{1.0, 1.0},
 				{1.0, 1.0}
 				};
 		Matrix o1 = new Matrix(org);
 		Matrix o2 = o1.copy();
-		assertEquals(org, copy);
+		assertArrayEquals(o1.getArray(), o2.getArray());
 	}
 	
 	@Test
@@ -180,10 +180,10 @@ public class Testtrix {
 				{1.0, 1.0},
 				{1.0, 1.0}
 				};
-		Matrix org = new Matrix(org);
-		Matrix clone = org.clone();
-		org.set(0, 0, 0.0);
-		assertEquals(org, copy);
+		Matrix o1 = new Matrix(org);
+		Matrix o2 = o1.clone();
+		o1.set(0, 0, 0.0);
+		assertArrayEquals(o1.getArray(), o2.getArray());
 	}
 	
 	public void testPrint()

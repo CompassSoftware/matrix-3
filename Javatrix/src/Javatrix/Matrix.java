@@ -169,6 +169,72 @@ public class Matrix {
     }
     
     /**
+     * Get column dimension.
+     * 
+     * @return n - Number of Columns
+     */
+    
+    public int getColumnDimension()
+    {
+    	int n = matArray[0].length;
+    	return n;
+    }
+    
+    /**
+     * Make a one-dimensional column packed copy of the internal array.
+     * 
+     * @return Matrix elements packed in a one-dimensional array by columns.
+     */
+    
+    public double[] getColumnPackedCopy()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	double[] CPC = new double[m*n];
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CPC[a+b*m] = matArray[a][b];
+    		}
+    	}
+    	return CPC;
+    }
+    
+    /**
+     * Get row dimension.
+     * 
+     * @return m - Number of Rows
+     */
+    
+    public int getRowDimension()
+    {
+    	int m = matArray.length;
+    	return m;
+    }
+    
+    /**
+     * Make a one-dimensional row packed copy of the internal array.
+     * 
+     * @return Matrix elements packed in a one-dimensional array by rowss.
+     */
+    
+    public double[] getRowPackedCopy()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	double[] RPC = new double[m*n];
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			RPC[a*n+b] = matArray[a][b];
+    		}
+    	}
+    	return RPC;
+    }
+    
+    /**
      * Constructs a matrix from a copy of a 2-D array.
      * 
      * @param A The matrix to copy.
@@ -210,7 +276,8 @@ public class Matrix {
      */
     public Matrix clone()
     {
-    	return super.clone();
+    	Matrix newMat = new Matrix(matArray);
+    	return newMat;
     }
     
     /**
@@ -245,5 +312,30 @@ public class Matrix {
     public void print(int w, int d)
     {
     	System.out.println("test");
+    }
+    
+    /**
+     * Matrix Trace
+     * 
+     * @return Sum of the diagonal elements.
+     */
+    
+    public double trace()
+    {
+    	double traceThis = 0.0;
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	int min = 0;
+    	
+    	if (m < n)
+    		{min = m;}
+    	else 
+    		{min = n;}
+    	
+    	for (int a = 0; a < min; a++)
+    	{
+    		traceThis += matArray[a][a];
+    	}
+    	return traceThis;
     }
 }
