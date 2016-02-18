@@ -169,6 +169,30 @@ public class Matrix {
     }
     
     /**
+     * Get column dimension.
+     * 
+     * @return n - Number of Columns
+     */
+    
+    public int getColumnDimension()
+    {
+    	int n = matArray[0].length;
+    	return n;
+    }
+    
+    /**
+     * Get row dimension.
+     * 
+     * @return m - Number of Rows
+     */
+    
+    public int getRowDimension()
+    {
+    	int m = matArray.length;
+    	return m;
+    }
+    
+    /**
      * Constructs a matrix from a copy of a 2-D array.
      * 
      * @param A The matrix to copy.
