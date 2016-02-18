@@ -90,7 +90,7 @@ public class Matrix {
         }        
     }
     
-   /**
+   /**Joseph O'Neill
     * Constructs a matrix from a one-dimensional packed array
     *  
     *  
@@ -168,7 +168,7 @@ public class Matrix {
         return array;
     }
     
-    /**
+    /**Joseph O'Neill
      * Get column dimension.
      * 
      * @return n - Number of Columns
@@ -180,7 +180,7 @@ public class Matrix {
     	return n;
     }
     
-    /**
+    /**Joseph O'Neill
      * Make a one-dimensional column packed copy of the internal array.
      * 
      * @return Matrix elements packed in a one-dimensional array by columns.
@@ -201,7 +201,7 @@ public class Matrix {
     	return CPC;
     }
     
-    /**
+    /**Joseph O'Neill
      * Get row dimension.
      * 
      * @return m - Number of Rows
@@ -213,7 +213,7 @@ public class Matrix {
     	return m;
     }
     
-    /**
+    /**Joseph O'Neill
      * Make a one-dimensional row packed copy of the internal array.
      * 
      * @return Matrix elements packed in a one-dimensional array by rowss.
@@ -280,7 +280,7 @@ public class Matrix {
     	return newMat;
     }
     
-    /**
+    /** Joseph O'Neill
      * Generate identity matrix
      * 
      * @param m - # of rows
@@ -314,7 +314,7 @@ public class Matrix {
     	System.out.println("test");
     }
     
-    /**
+    /**Joseph O'Neill
      * Matrix Trace
      * 
      * @return Sum of the diagonal elements.
@@ -337,5 +337,179 @@ public class Matrix {
     		traceThis += matArray[a][a];
     	}
     	return traceThis;
+    }
+    
+    /**Joseph O'Neill
+     * Matrix transpose
+     * 
+     * @return A'
+     */
+    
+    public Matrix transpose()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	Matrix trans = new Matrix(n,m); //Forgot to reverse this for Transpose!
+    	double[][] transArray = trans.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			transArray[b][a] = matArray[a][b];
+    		}
+    	}
+    	
+    	return trans;
+    }
+    
+    /**Joseph O'Neill
+     * C = A - B
+     * 
+     * @param B - Another Matrix
+     * @return A - B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix minus(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	Matrix minusThis = new Matrix(m,n);
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	double CArray[][] = minusThis.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CArray[a][b] = AArray[a][b] - BArray[a][b];
+    		}
+    	}
+    	
+    	return minusThis;
+    }
+    
+    /**Joseph O'Neill
+     * A = A - B
+     * 
+     * @param B - another Matrix
+     * @return A - B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix minusEquals(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			AArray[a][b] = AArray[a][b] - BArray[a][b];
+    		}
+    	}
+    	
+    	return this;
+    }
+    
+    
+    /**Joseph O'Neill
+     * C = A + B
+     * 
+     * @param B - Another Matrix
+     * @return A + B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix plus(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	Matrix plusThis = new Matrix(m,n);
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	double CArray[][] = plusThis.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CArray[a][b] = AArray[a][b] + BArray[a][b];
+    		}
+    	}
+    	
+    	return plusThis;
+    }
+    
+    /**Joseph O'Neill
+     * A = A + B
+     * 
+     * @param B - another Matrix
+     * @return A + B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix plusEquals(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			AArray[a][b] = AArray[a][b] + BArray[a][b];
+    		}
+    	}
+    	
+    	return this;
     }
 }
