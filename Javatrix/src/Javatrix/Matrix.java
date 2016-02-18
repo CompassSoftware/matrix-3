@@ -512,4 +512,29 @@ public class Matrix {
     	
     	return this;
     }
+    
+    /**Joseph O'Neill
+     * Unary minus
+     * 
+     * @return -matArray
+     */
+    
+    public Matrix uMinus()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	Matrix neg = new Matrix(m,n);
+    	double[][] negArray = neg.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			negArray[a][b] = -matArray[a][b];
+    		}
+    	}
+    	
+    	return neg;
+    }
 }
