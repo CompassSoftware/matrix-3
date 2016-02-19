@@ -291,7 +291,6 @@ public class Testtrix {
 	//Joseph O'Neill
 	@Test
 	public void testGetColumnDimension()
-	
 	{
 		double[][] source = {{5, 4, 3, 2, 1},
 							 {8, 7, 6, 5, 4},
@@ -303,7 +302,6 @@ public class Testtrix {
 	//Joseph O'Neill
 	@Test
 	public void testGetRowDimension()
-	
 	{
 		double[][] source = {{5, 4, 3, 2, 1},
 							 {8, 7, 6, 5, 4},
@@ -312,10 +310,33 @@ public class Testtrix {
 		assertEquals(3,rowTest.getRowDimension());
 	}
 	
-	//Joseph O'Neill
+	//Joseph O'Neill - For some reason, AssertEquals doesn't work for double[], 
+	//but AssertArrayEquals works for double[][]? Quick work around we can fix
+	//if need be.
 	@Test
 	public void testGetColumnPackedCopy()
 	{
-		
+		double[][] source = {{5, 4, 3, 2, 1},
+				 			 {8, 7, 6, 5, 4},
+				 			 {2, 1, 0,-1,-2}};
+		double[][] test = {{5,8,2,4,7,1,3,6,0,2,5,-1,1,4,-2},{5,8,2,4,7,1,3,6,0,2,5,-1,1,4,-2}};
+		Matrix testMat = new Matrix(source);
+		double[][] CPC = {testMat.getColumnPackedCopy(),testMat.getColumnPackedCopy()};
+		assertArrayEquals(CPC,test);
+	}
+	
+	//Joseph O'Neill - For some reason, AssertEquals doesn't work for double[], 
+	//but AssertArrayEquals works for double[][]? Quick work around we can fix
+	//if need be.
+	@Test
+	public void testGetRowPackedCopy()
+	{
+		double[][] source = {{5, 4, 3, 2, 1},
+				 			 {8, 7, 6, 5, 4},
+				 			 {2, 1, 0,-1,-2}};
+		double[][] test = {{5,4,3,2,1,8,7,6,5,4,2,1,0,-1,-2},{5,4,3,2,1,8,7,6,5,4,2,1,0,-1,-2}};
+		Matrix testMat = new Matrix(source);
+		double[][] RPC = {testMat.getRowPackedCopy(),testMat.getRowPackedCopy()};
+		assertArrayEquals(RPC,test);
 	}
 }
