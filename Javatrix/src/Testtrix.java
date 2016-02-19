@@ -133,23 +133,36 @@ public class Testtrix {
 	@Test
 	public void testConstructZerosMatrix()
 	{
-		double[][] source = {
+		double[][] expected = {
 				{0.0, 0.0},
 				{0.0, 0.0}
 				};
 		Matrix zero = new Matrix(2,2);
-		assertArrayEquals(source, zero.getArray());
+		assertArrayEquals(expected, zero.getArray());
 	}
 	
 	@Test
 	public void testConstructSMatrix()
 	{
-		double[][] source = {
+		double[][] expected = {
 				{1.0, 1.0},
 				{1.0, 1.0}
 				};
 		Matrix s = new Matrix(2, 2, 1.0);
-		assertArrayEquals(source, s.getArray());
+		assertArrayEquals(expected, s.getArray());
+	}
+	
+	@Test
+	public void testCounstructWith1DArray()
+	{
+		double[] source = {1.0, 1.0};
+		int m = 2
+		double[][] expected = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		Matrix newArray = new Matrix(source, m)
+		assertArrayEquals(expected, newArray.getArray())
 	}
 	
 	@Test

@@ -3,7 +3,8 @@ import java.io.PrintWriter;
 import java.lang.IllegalArgumentException;
 import java.text.NumberFormat;
 
-public class Matrix {
+public class Matrix implements Cloneable
+{
 
     private double[][] matArray;
     
@@ -91,6 +92,15 @@ public class Matrix {
         }        
     }
     
+    public Matrix(double[] vals, int m) throws IllegalArguementExcpetion
+    {	
+    	matArray = new double[m][vals.length];
+    	for (int i = 0; i < m; i++)
+        {
+            matArray[i] = vals;
+        }
+    }
+    
     /**
      * Gets the value at i, j
      *
@@ -99,8 +109,8 @@ public class Matrix {
      * @return the value at i, j
      */
     public double get(int i, int j)
-    {
-        return matArray[i][j];
+    {    	
+    	return matArray[i][j];
     }
     
     /**
@@ -372,10 +382,9 @@ public class Matrix {
      * 
      * @return Matrix A clone of the matrix.
      */
-    public Matrix clone()
+    public Matrix clone() throws CloneNotSupportedException
     {
-    	Matrix newMat = new Matrix(matArray);
-    	return newMat;
+    	return super.clone();
     }
     
     /** Joseph O'Neill
