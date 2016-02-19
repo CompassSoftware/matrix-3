@@ -313,6 +313,9 @@ public class Testtrix {
 	}
 	
 	//Joseph O'Neill
-	//@Test
-	//public void testGet
+	@Test
+	public void testGetColumnPackedCopy()
+	{
+		
+	}
 }
