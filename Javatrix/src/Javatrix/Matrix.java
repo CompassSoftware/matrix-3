@@ -22,8 +22,7 @@ public class Matrix {
             for (int j = 0; j < matArray[0].length; j++) {
                 array[i][j] = matArray[i][j];
             }
-        }
-        
+        }        
         this.matArray = array;
     }
     
@@ -92,33 +91,6 @@ public class Matrix {
         }        
     }
     
-   /**
-    * Constructs a matrix from a one-dimensional packed array
-    *  
-    *  
-    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
-    * @param m - Number of rows.
-    * 
-    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
-    */
-    
-    public Matrix(double vals[], int m)
-    {
-        if (m == 0 || vals.length%m != 0)
-        {
-        	throw new IllegalArgumentException("Array length must be a multiple of m.");
-        }
-        int cols = vals.length;
-        matArray = new double[m][cols];
-        for (int a = 0; a < m; a++) 
-        {
-        	for (int b = 0; b < cols; b++) 
-        	{
-        		matArray[a][b] = vals[a+b*m];
-            }
-        }
-    }
-    
     /**
      * Gets the value at i, j
      *
@@ -171,72 +143,6 @@ public class Matrix {
     }
     
     /**
-     * Get column dimension.
-     * 
-     * @return n - Number of Columns
-     */
-    
-    public int getColumnDimension()
-    {
-    	int n = matArray[0].length;
-    	return n;
-    }
-    
-    /**
-     * Make a one-dimensional column packed copy of the internal array.
-     * 
-     * @return Matrix elements packed in a one-dimensional array by columns.
-     */
-    
-    public double[] getColumnPackedCopy()
-    {
-    	int m = getRowDimension();
-    	int n = getColumnDimension();
-    	double[] CPC = new double[m*n];
-    	for (int a = 0; a < m; a++)
-    	{
-    		for (int b = 0; b < n; b++)
-    		{
-    			CPC[a+b*m] = matArray[a][b];
-    		}
-    	}
-    	return CPC;
-    }
-    
-    /**
-     * Get row dimension.
-     * 
-     * @return m - Number of Rows
-     */
-    
-    public int getRowDimension()
-    {
-    	int m = matArray.length;
-    	return m;
-    }
-    
-    /**
-     * Make a one-dimensional row packed copy of the internal array.
-     * 
-     * @return Matrix elements packed in a one-dimensional array by rowss.
-     */
-    
-    public double[] getRowPackedCopy()
-    {
-    	int m = getRowDimension();
-    	int n = getColumnDimension();
-    	double[] RPC = new double[m*n];
-    	for (int a = 0; a < m; a++)
-    	{
-    		for (int b = 0; b < n; b++)
-    		{
-    			RPC[a*n+b] = matArray[a][b];
-    		}
-    	}
-    	return RPC;
-    }
-    
-    /**
      * Constructs a matrix from a copy of a 2-D array.
      * 
      * @param A The matrix to copy.
@@ -269,40 +175,6 @@ public class Matrix {
     	Matrix copyMatrix = new Matrix(this.matArray);
     	
         return copyMatrix;
-    }
-    
-    /**
-     * Clones the Matrix object.
-     * 
-     * @return Matrix A clone of the matrix. 
-     */
-    public Object clone()
-    {
-    	return this.clone();
-    }
-    
-    /**
-     * Generate identity matrix
-     * 
-     * @param m - # of rows
-     * @param n - # of columns
-     * @return 	  An m-by-n matrix with ones on the diagonal and zeros elsewhere.
-     */
-    public static Matrix identity(int m, int n)
-    {
-    	Matrix ident = new Matrix(m,n);
-    	double[][] fillErUp = ident.getArray();
-    	for (int a = 0; a < m; a++)
-    	{
-    		for (int b = 0; b < n; b++)
-    		{
-    			if (a == b)
-    				fillErUp[a][b] = 1.0;
-    			else
-    				fillErUp[a][b] = 0.0;
-    		}
-    	}
-    	return ident;
     }
 
     /**
@@ -387,7 +259,135 @@ public class Matrix {
     	writer.print(output);
     }
     
+   /**Joseph O'Neill
+    * Constructs a matrix from a one-dimensional packed array
+    *  
+    *  
+    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
+    * @param m - Number of rows.
+    * 
+    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
+    */
+    
+    public Matrix(double vals[], int m)
+    {
+        if (m == 0 || vals.length%m != 0)
+        {
+        	throw new IllegalArgumentException("Array length must be a multiple of m.");
+        }
+        int cols = vals.length;
+        matArray = new double[m][cols];
+        for (int a = 0; a < m; a++) 
+        {
+        	for (int b = 0; b < cols; b++) 
+        	{
+        		matArray[a][b] = vals[a+b*m];
+            }
+        }
+    }
+    
+    /**Joseph O'Neill
+     * Get column dimension.
+     * 
+     * @return n - Number of Columns
+     */
+    
+    public int getColumnDimension()
+    {
+    	int n = matArray[0].length;
+    	return n;
+    }
+    
+    /**Joseph O'Neill
+     * Make a one-dimensional column packed copy of the internal array.
+     * 
+     * @return Matrix elements packed in a one-dimensional array by columns.
+     */
+    
+    public double[] getColumnPackedCopy()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	double[] CPC = new double[m*n];
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CPC[a+b*m] = matArray[a][b];
+    		}
+    	}
+    	return CPC;
+    }
+    
+    /**Joseph O'Neill
+     * Get row dimension.
+     * 
+     * @return m - Number of Rows
+     */
+    
+    public int getRowDimension()
+    {
+    	int m = matArray.length;
+    	return m;
+    }
+    
+    /**Joseph O'Neill
+     * Make a one-dimensional row packed copy of the internal array.
+     * 
+     * @return Matrix elements packed in a one-dimensional array by rowss.
+     */
+    
+    public double[] getRowPackedCopy()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	double[] RPC = new double[m*n];
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			RPC[a*n+b] = matArray[a][b];
+    		}
+    	}
+    	return RPC;
+    }
+    
     /**
+     * Clones the Matrix object.
+     * 
+     * @return Matrix A clone of the matrix.
+     */
+    public Matrix clone()
+    {
+    	Matrix newMat = new Matrix(matArray);
+    	return newMat;
+    }
+    
+    /** Joseph O'Neill
+     * Generate identity matrix
+     * 
+     * @param m - # of rows
+     * @param n - # of columns
+     * @return 	  An m-by-n matrix with ones on the diagonal and zeros elsewhere.
+     */
+    public static Matrix identity(int m, int n)
+    {
+    	Matrix ident = new Matrix(m,n);
+    	double[][] fillErUp = ident.getArray();
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			if (a == b)
+    				fillErUp[a][b] = 1.0;
+    			else
+    				fillErUp[a][b] = 0.0;
+    		}
+    	}
+    	return ident;
+    }
+    
+    /**Joseph O'Neill
      * Matrix Trace
      * 
      * @return Sum of the diagonal elements.
@@ -410,5 +410,204 @@ public class Matrix {
     		traceThis += matArray[a][a];
     	}
     	return traceThis;
+    }
+    
+    /**Joseph O'Neill
+     * Matrix transpose
+     * 
+     * @return A'
+     */
+    
+    public Matrix transpose()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	Matrix trans = new Matrix(n,m); //Forgot to reverse this for Transpose!
+    	double[][] transArray = trans.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			transArray[b][a] = matArray[a][b];
+    		}
+    	}
+    	
+    	return trans;
+    }
+    
+    /**Joseph O'Neill
+     * C = A - B
+     * 
+     * @param B - Another Matrix
+     * @return A - B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix minus(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	Matrix minusThis = new Matrix(m,n);
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	double CArray[][] = minusThis.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CArray[a][b] = AArray[a][b] - BArray[a][b];
+    		}
+    	}
+    	
+    	return minusThis;
+    }
+    
+    /**Joseph O'Neill
+     * A = A - B
+     * 
+     * @param B - another Matrix
+     * @return A - B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix minusEquals(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			AArray[a][b] = AArray[a][b] - BArray[a][b];
+    		}
+    	}
+    	
+    	return this;
+    }
+    
+    
+    /**Joseph O'Neill
+     * C = A + B
+     * 
+     * @param B - Another Matrix
+     * @return A + B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix plus(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	Matrix plusThis = new Matrix(m,n);
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	double CArray[][] = plusThis.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			CArray[a][b] = AArray[a][b] + BArray[a][b];
+    		}
+    	}
+    	
+    	return plusThis;
+    }
+    
+    /**Joseph O'Neill
+     * A = A + B
+     * 
+     * @param B - another Matrix
+     * @return A + B
+     * @throws Dimensions must be equal
+     */
+    
+    public Matrix plusEquals(Matrix B)
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	int x = B.getRowDimension();
+    	int y = B.getColumnDimension();
+    	
+    	if ((m != x) && (n != y))
+    	{
+        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
+
+    	}
+    	
+    	double AArray[][] = getArray();
+    	double BArray[][] = B.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			AArray[a][b] = AArray[a][b] + BArray[a][b];
+    		}
+    	}
+    	
+    	return this;
+    }
+    
+    /**Joseph O'Neill
+     * Unary minus
+     * 
+     * @return -matArray
+     */
+    
+    public Matrix uMinus()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	Matrix neg = new Matrix(m,n);
+    	double[][] negArray = neg.getArray();
+    	
+    	for (int a = 0; a < m; a++)
+    	{
+    		for (int b = 0; b < n; b++)
+    		{
+    			negArray[a][b] = -matArray[a][b];
+    		}
+    	}
+    	
+    	return neg;
     }
 }
