@@ -176,7 +176,22 @@ public class Matrix {
     	
         return copyMatrix;
     }
-
+    /**
+     * Generate matrix with random elements
+     */
+    public static Matrix random(int m, int n)
+    {
+    	Matrix A = new Matrix(m, n);
+    	for (int i = 0; i < m; i++)
+    	{
+    		for (int j = 0; j < n; j++)
+    		{
+    			A.set(i, j, Math.random());
+    	
+    		}
+    	}
+    	return A;
+    }
     /**
      * Print matrix
      * @param w Column width
