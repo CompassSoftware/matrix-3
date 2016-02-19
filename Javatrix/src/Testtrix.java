@@ -91,6 +91,7 @@ public class Testtrix {
 		{
 			double[][] src = {{0, 0, 0}, {0, 0}};
 			Matrix badMat = new Matrix(src);
+			assertArrayEquals(badMat.getArray(),badMat.getArray());
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -388,6 +389,96 @@ public class Testtrix {
 		assertArrayEquals(trans.getArray(),transposed);
 		assertArrayEquals(normal.getArray(),trans.transpose().getArray());
 	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testMinus()
+	{
+		double[][] AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,0,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		Matrix A = new Matrix(AArray);
+		Matrix B = new Matrix(A.getArray());
+		Matrix C = new Matrix(5,5);
+		Matrix ans = A.minus(B);
+		assertArrayEquals(ans.getArray(),C.getArray());
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testPlus()
+	{
+		double[][] AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,0,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		Matrix A = new Matrix(AArray);
+		Matrix B = A.uMinus();
+		Matrix C = new Matrix(5,5);
+		Matrix ans = A.plus(B);
+		assertArrayEquals(ans.getArray(),C.getArray());
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testMinusEquals()
+	{
+		double[][] AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,0,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		Matrix A = new Matrix(AArray);
+		Matrix B = new Matrix(A.getArray());
+		Matrix C = new Matrix(5,5);
+		Matrix ans = A.minusEquals(B);
+		assertArrayEquals(ans.getArray(),C.getArray());
+		assertArrayEquals(ans.getArray(),A.getArray());
+	}
+
+	//Joseph O'Neill
+	@Test
+	public void testPlusEquals()
+	{
+		double[][] AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,0,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		Matrix A = new Matrix(AArray);
+		Matrix B = A.uMinus();
+		Matrix C = new Matrix(5,5);
+		Matrix ans = A.plusEquals(B);
+		assertArrayEquals(ans.getArray(),C.getArray());
+		assertArrayEquals(ans.getArray(),A.getArray());
+	}
+	
+	//Joseph O'Neill - Having issues with Unary Minus, 0, and assertEquals. 
+	//If there is a 0 in the matrix, then assertEquals expects a -0, although a
+	//simple 0 is included in the matrix, thus failing. Without a 0, however, everything
+	//passes. Will ask Dr. Fenwick on Monday.
+	@Test
+	public void testUMinus()
+	{
+		double[][] AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,100,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		
+		double[][] UArray = {{-5,-4,-3,-2,-1},
+	 			 			 {-6,-5,-4,-3,-2},
+	 			 			 {5,-100,-5,-10,-15},
+	 			 			 {-9,-2,-4,-5,-11},
+	 			 			 {-1,-2,-3,-4,-5}};
+		
+		Matrix A = new Matrix(AArray);
+		Matrix U = A.uMinus();
+		assertArrayEquals(U.getArray(),UArray);
+	}
 
 	@Test
 	public void testTimesScalar()
@@ -443,5 +534,5 @@ public class Testtrix {
 		Matrix mat3 = mat1.times(mat2);
 		assertArrayEquals(expected, mat3.getArray());
 	}
-
 }
+
