@@ -68,6 +68,33 @@ public class Matrix implements Cloneable
         }        
     }
     
+   /**Joseph O'Neill
+    * Constructs a matrix from a one-dimensional packed array
+    *  
+    *  
+    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
+    * @param m - Number of rows.
+    * 
+    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
+    */
+    
+    public Matrix(double vals[], int m) throws IllegalArgumentException
+    {
+        if (m == 0 || vals.length%m != 0)
+        {
+        	throw new IllegalArgumentException("Array length must be a multiple of m.");
+        }
+        int n = vals.length/m;
+        matArray = new double[m][n];
+        for (int a = 0; a < m; a++) 
+        {
+        	for (int b = 0; b < n; b++) 
+        	{
+        		matArray[a][b] = vals[a+b*m];
+            }
+        }
+    }
+    
     /**
      * Constructs a m-by-n matrix of s.
      *
@@ -274,32 +301,16 @@ public class Matrix implements Cloneable
     	}
     	writer.print(output);
     }
-    
-   /**Joseph O'Neill
-    * Constructs a matrix from a one-dimensional packed array
-    *  
-    *  
-    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
-    * @param m - Number of rows.
-    * 
-    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
-    */
-    
-    public Matrix(double vals[], int m) throws IllegalArgumentException
+
+    /**
+     * Clones the Matrix object.
+     * 
+     * @return Matrix A clone of the matrix.
+     */
+    public Matrix clone() //throws CloneNotSupportedException
     {
-        if (m == 0 || vals.length%m != 0)
-        {
-        	throw new IllegalArgumentException("Array length must be a multiple of m.");
-        }
-        int n = vals.length/m;
-        matArray = new double[m][n];
-        for (int a = 0; a < m; a++) 
-        {
-        	for (int b = 0; b < n; b++) 
-        	{
-        		matArray[a][b] = vals[a+b*m];
-            }
-        }
+    	return new Matrix(matArray);
+    	//return super.clone();
     }
     
     /**Joseph O'Neill
@@ -366,17 +377,6 @@ public class Matrix implements Cloneable
     		}
     	}
     	return RPC;
-    }
-    
-    /**
-     * Clones the Matrix object.
-     * 
-     * @return Matrix A clone of the matrix.
-     */
-    public Matrix clone() //throws CloneNotSupportedException
-    {
-    	return new Matrix(matArray);
-    	//return super.clone();
     }
     
     /** Joseph O'Neill
