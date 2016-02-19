@@ -156,13 +156,13 @@ public class Testtrix {
 	public void testCounstructWith1DArray()
 	{
 		double[] source = {1.0, 1.0};
-		int m = 2
+		int m = 2;
 		double[][] expected = {
 				{1.0, 1.0},
 				{1.0, 1.0}
 				};
-		Matrix newArray = new Matrix(source, m)
-		assertArrayEquals(expected, newArray.getArray())
+		Matrix newArray = new Matrix(source, m);
+		assertArrayEquals(expected, newArray.getArray());
 	}
 	
 	@Test

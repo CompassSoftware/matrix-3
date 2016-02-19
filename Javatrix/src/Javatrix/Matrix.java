@@ -91,16 +91,7 @@ public class Matrix implements Cloneable
             System.out.println("Array size must not be negative");
         }        
     }
-    
-    public Matrix(double[] vals, int m) throws IllegalArguementExcpetion
-    {	
-    	matArray = new double[m][vals.length];
-    	for (int i = 0; i < m; i++)
-        {
-            matArray[i] = vals;
-        }
-    }
-    
+
     /**
      * Gets the value at i, j
      *
@@ -294,7 +285,7 @@ public class Matrix implements Cloneable
     * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
     */
     
-    public Matrix(double vals[], int m)
+    public Matrix(double vals[], int m) throws IllegalArgumentException
     {
         if (m == 0 || vals.length%m != 0)
         {
@@ -382,9 +373,10 @@ public class Matrix implements Cloneable
      * 
      * @return Matrix A clone of the matrix.
      */
-    public Matrix clone() throws CloneNotSupportedException
+    public Matrix clone() //throws CloneNotSupportedException
     {
-    	return super.clone();
+    	return new Matrix(matArray);
+    	//return super.clone();
     }
     
     /** Joseph O'Neill
