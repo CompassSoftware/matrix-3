@@ -158,9 +158,8 @@ public class Testtrix {
 		double[] source = {1.0, 1.0};
 		int m = 2;
 		double[][] expected = {
-				{1.0, 1.0},
-				{1.0, 1.0}
-				};
+				{1.0},
+				{1.0}};
 		Matrix newArray = new Matrix(source, m);
 		assertArrayEquals(expected, newArray.getArray());
 	}
@@ -338,5 +337,55 @@ public class Testtrix {
 		Matrix testMat = new Matrix(source);
 		double[][] RPC = {testMat.getRowPackedCopy(),testMat.getRowPackedCopy()};
 		assertArrayEquals(RPC,test);
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testIdentity()
+	{
+		double[][] source = {{1,0,0,0},
+							 {0,1,0,0},
+							 {0,0,1,0},
+							 {0,0,0,1},
+							 {0,0,0,0}};
+		Matrix other = new Matrix(source);
+		Matrix id = Matrix.identity(5,4);
+		assertArrayEquals(other.getArray(),id.getArray());
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testTrace()
+	{
+		double[][] source = {{5,4,3,2,1},
+							 {6,5,4,3,2},
+							 {-5,0,5,10,15},
+							 {9,2,4,5,11},
+							 {1,2,3,4,5}};
+		Matrix trc = new Matrix(source);
+		double answer = 25;
+		assertEquals(answer,trc.trace(),0);
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testTranspose()
+	{
+		double[][] source = {{5,4,3,2,1},
+				 			 {6,5,4,3,2},
+				 			 {-5,0,5,10,15},
+				 			 {9,2,4,5,11},
+				 			 {1,2,3,4,5}};
+		
+		double[][] transposed = {{5,6,-5,9,1},
+				 			 	 {4,5,0,2,2},
+				 			 	 {3,4,5,4,3},
+				 			 	 {2,3,10,5,4},
+				 			 	 {1,2,15,11,5}};
+		
+		Matrix normal = new Matrix(source);
+		Matrix trans = normal.transpose();
+		assertArrayEquals(trans.getArray(),transposed);
+		assertArrayEquals(normal.getArray(),trans.transpose().getArray());
 	}
 }
