@@ -300,11 +300,11 @@ public class Matrix implements Cloneable
         {
         	throw new IllegalArgumentException("Array length must be a multiple of m.");
         }
-        int cols = vals.length;
-        matArray = new double[m][cols];
+        int n = vals.length/m;
+        matArray = new double[m][n];
         for (int a = 0; a < m; a++) 
         {
-        	for (int b = 0; b < cols; b++) 
+        	for (int b = 0; b < n; b++) 
         	{
         		matArray[a][b] = vals[a+b*m];
             }
