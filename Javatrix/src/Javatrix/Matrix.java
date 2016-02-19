@@ -626,4 +626,76 @@ public class Matrix implements Cloneable
     	
     	return neg;
     }
+    
+    /**
+     * Multiplies the matrix by the scalar given.
+     * 
+     * @param s double
+     * @return 
+     */
+    public Matrix times(double s)
+    {
+    	Matrix mat = new Matrix(this.matArray); 
+    	for (int i = 0; i < mat.getArray().length; i++)
+    	{
+    		for (int j = 0; j < mat.getArray()[0].length; j++)
+    		{
+    			mat.getArray()[i][j] *= s;
+    		}
+    	}
+    	return mat;
+    }
+
+    /**
+     * Multiplies the matrix by the scalar given.
+     * 
+     * @param s double
+     * @return 
+     */
+    public Matrix timesEquals(double s)
+    {
+    	for (int i = 0; i < matArray.length; i++)
+    	{
+    		for (int j = 0; j < matArray[0].length; j++)
+    		{
+    			matArray[i][j] *= s;
+    		}
+    	}
+    	return this;
+    }
+    
+    /**
+     * Multiplies the matrix by the matrix given.
+     * 
+     * @param B Matrix
+     * @return 
+     */
+    public Matrix times(Matrix B) throws IllegalArgumentException
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	int p = B.getRowDimension();
+    	int q = B.getColumnDimension();
+    	int sum = 0;
+    	
+    	if ((n != p))
+    	{
+        	throw new IllegalArgumentException("Matrix inner dimensions must agree.");
+    	}
+    	
+		Matrix mat = new Matrix(matArray.length, B.getArray()[0].length);
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < q; j++)
+			{
+				for (int k = 0; k < p; k++)
+				{
+					sum += matArray[i][k] * B.getArray()[k][j];
+				}
+				mat.matArray[i][j] = sum;
+				sum = 0;
+			}
+		}
+    	return mat;
+    }
 }

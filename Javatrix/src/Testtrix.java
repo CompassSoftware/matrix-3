@@ -388,4 +388,60 @@ public class Testtrix {
 		assertArrayEquals(trans.getArray(),transposed);
 		assertArrayEquals(normal.getArray(),trans.transpose().getArray());
 	}
+
+	@Test
+	public void testTimesScalar()
+	{
+		double[][] source = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		double[][] expected = {
+				{2.0, 2.0},
+				{2.0, 2.0}
+				};
+		Matrix mat = new Matrix(source);
+		mat.timesEquals(2.0);
+		assertArrayEquals(expected, mat.getArray());
+	}
+	
+	@Test
+	public void testTimesEqualsScalar()
+	{
+		double[][] source = {
+				{1.0, 1.0},
+				{1.0, 1.0}
+				};
+		double[][] expected = {
+				{2.0, 2.0},
+				{2.0, 2.0}
+				};
+		Matrix mat = new Matrix(source);
+		mat.timesEquals(2.0);
+		assertArrayEquals(expected, mat.getArray());
+	}
+	
+	//Used a Khan Academy example for the values of the arrays.
+	@Test
+	public void testTimesMatrix()
+	{
+		double[][] source1 = {
+				{0.0, 3.0, 5.0},
+				{5.0, 5.0, 2.0}
+				};
+		double[][] source2 = {
+				{3.0, 4.0},
+				{3.0, -2.0},
+				{4.0, -2.0}
+				};
+		double[][] expected = {
+				{29.0, -16.0},
+				{38.0, 6.0}
+				};
+		Matrix mat1 = new Matrix(source1);
+		Matrix mat2 = new Matrix(source2);
+		Matrix mat3 = mat1.times(mat2);
+		assertArrayEquals(expected, mat3.getArray());
+	}
+
 }
