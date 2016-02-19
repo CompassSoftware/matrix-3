@@ -468,13 +468,7 @@ public class Matrix implements Cloneable
     	
     	int x = B.getRowDimension();
     	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	Matrix minusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -506,13 +500,7 @@ public class Matrix implements Cloneable
     	
     	int x = B.getRowDimension();
     	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
     	
@@ -543,13 +531,7 @@ public class Matrix implements Cloneable
     	
     	int x = B.getRowDimension();
     	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	Matrix plusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -581,13 +563,7 @@ public class Matrix implements Cloneable
     	
     	int x = B.getRowDimension();
     	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
     	
