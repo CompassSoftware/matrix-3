@@ -261,4 +261,45 @@ public class Testtrix {
 				+ " 6.0 7.0 8.0\n",
 				output);
 	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testMatrixOneDArrayDoubles()
+	{
+		double[] source = {0,4,7,1,5,8,2,6,9};
+		double[][] test = {{0,1,2},
+						   {4,5,6},
+						   {7,8,9}};
+		int numRows = 3;
+		Matrix OneDArray = new Matrix(source, numRows);
+		assertArrayEquals(OneDArray.getArray(),test);
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testGetColumnDimension()
+	
+	{
+		double[][] source = {{5, 4, 3, 2, 1},
+							 {8, 7, 6, 5, 4},
+							 {2, 1, 0,-1,-2}};
+		Matrix columnTest = new Matrix(source);
+		assertEquals(5,columnTest.getColumnDimension());
+	}
+	
+	//Joseph O'Neill
+	@Test
+	public void testGetRowDimension()
+	
+	{
+		double[][] source = {{5, 4, 3, 2, 1},
+							 {8, 7, 6, 5, 4},
+							 {2, 1, 0,-1,-2}};
+		Matrix rowTest = new Matrix(source);
+		assertEquals(3,rowTest.getRowDimension());
+	}
+	
+	//Joseph O'Neill
+	//@Test
+	//public void testGet
 }
