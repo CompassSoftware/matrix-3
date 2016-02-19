@@ -1,5 +1,7 @@
 package Javatrix;
+import java.io.PrintWriter;
 import java.lang.IllegalArgumentException;
+import java.text.NumberFormat;
 
 public class Matrix {
 
@@ -272,12 +274,11 @@ public class Matrix {
     /**
      * Clones the Matrix object.
      * 
-     * @return Matrix A clone of the matrix.
+     * @return Matrix A clone of the matrix. 
      */
-    public Matrix clone()
+    public Object clone()
     {
-    	Matrix newMat = new Matrix(matArray);
-    	return newMat;
+    	return this.clone();
     }
     
     /**
@@ -311,7 +312,79 @@ public class Matrix {
      */
     public void print(int w, int d)
     {
-    	System.out.println("test");
+    	String field = "%" + w + "." + d + "f";
+    	String output = "";
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+    		for (int j = 0; j < getColumnDimension(); j++)
+    		{
+    			output += String.format(field, get(i,j));
+    		}
+    		output += '\n';
+    	}
+    	System.out.print(output);
+    }
+
+    /**
+     * Print matrix
+     * @param writer PrintWriter for output
+     * @param w Column width
+     * @param d Number of digits after the decimal
+     */
+    public void print(PrintWriter writer, int w, int d)
+    {
+    	String field = "%" + w + "." + d + "f";
+    	String output = "";
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+    		for (int j = 0; j < getColumnDimension(); j++)
+    		{
+    			output += String.format(field, get(i,j));
+    		}
+    		output += '\n';
+    	}
+    	writer.print(output);
+    }
+
+    /**
+     * Print matrix
+     * @param form NumberFormat to format output
+     * @param w Column width
+     */
+    public void print(NumberFormat form, int w)
+    {
+    	String output = "";
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+    		for (int j = 0; j < getColumnDimension(); j++)
+    		{
+    			String num = form.format(get(i,j));
+    			output += String.format("%" + w + "s", num);
+    		}
+    		output += '\n';
+    	}
+    	System.out.print(output);
+    }
+
+    /**
+     * Print matrix
+     * @param writer PrintWriter for output
+     * @param form NumberFormat to format output
+     * @param w Column width
+     */
+    public void print(PrintWriter writer, NumberFormat form, int w)
+    {
+    	String output = "";
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+    		for (int j = 0; j < getColumnDimension(); j++)
+    		{
+    			String num = form.format(get(i,j));
+    			output += String.format("%" + w + "s", num);
+    		}
+    		output += '\n';
+    	}
+    	writer.print(output);
     }
     
     /**

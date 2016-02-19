@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -181,14 +183,82 @@ public class Testtrix {
 				{1.0, 1.0}
 				};
 		Matrix o1 = new Matrix(org);
-		Matrix o2 = o1.clone();
+		Matrix o2 = (Matrix) o1.clone();
 		o1.set(0, 0, 0.0);
 		assertArrayEquals(o1.getArray(), o2.getArray());
 	}
 	
+	@Test
 	public void testPrint()
 	{
+		double[][] source = {
+				{0, 1, 2},
+				{3, 4, 5},
+				{6, 7, 8}
+				};
+		Matrix mat = new Matrix(source);
+		mat.print(4, 1);
 		String output = testOut.toString();
-		assert(output.equals("test"));
+		assertEquals(" 0.0 1.0 2.0\n"
+				+ " 3.0 4.0 5.0\n"
+				+ " 6.0 7.0 8.0\n",
+				output);
+	}
+	
+	@Test
+	public void testPrintOutputStream()
+	{
+		double[][] source = {
+				{0, 1, 2},
+				{3, 4, 5},
+				{6, 7, 8}
+				};
+		Matrix mat = new Matrix(source);
+		PrintWriter writer = new PrintWriter(testOut);
+		mat.print(writer, 4, 1);
+		writer.flush();
+		String output = testOut.toString();
+		assertEquals(" 0.0 1.0 2.0\n"
+				+ " 3.0 4.0 5.0\n"
+				+ " 6.0 7.0 8.0\n",
+				output);
+	}
+	
+	@Test
+	public void testPrintNumberFormat()
+	{
+		double[][] source = {
+				{0, 1, 2},
+				{3, 4, 5},
+				{6, 7, 8}
+				};
+		Matrix mat = new Matrix(source);
+		DecimalFormat format = new DecimalFormat("#0.0");
+		mat.print(format, 4);
+		String output = testOut.toString();
+		assertEquals(" 0.0 1.0 2.0\n"
+				+ " 3.0 4.0 5.0\n"
+				+ " 6.0 7.0 8.0\n",
+				output);
+	}
+	
+	@Test
+	public void testPrintNumberFormatOutputStream()
+	{
+		double[][] source = {
+				{0, 1, 2},
+				{3, 4, 5},
+				{6, 7, 8}
+				};
+		Matrix mat = new Matrix(source);
+		DecimalFormat format = new DecimalFormat("#0.0");
+		PrintWriter writer = new PrintWriter(testOut);
+		mat.print(writer, format, 4);
+		writer.flush();
+		String output = testOut.toString();
+		assertEquals(" 0.0 1.0 2.0\n"
+				+ " 3.0 4.0 5.0\n"
+				+ " 6.0 7.0 8.0\n",
+				output);
 	}
 }
