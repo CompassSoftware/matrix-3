@@ -465,9 +465,6 @@ public class Matrix implements Cloneable
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
 
     	Matrix minusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
@@ -497,9 +494,6 @@ public class Matrix implements Cloneable
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
 
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -528,9 +522,6 @@ public class Matrix implements Cloneable
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
 
     	Matrix plusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
@@ -561,9 +552,6 @@ public class Matrix implements Cloneable
     	int m = getRowDimension();
     	int n = getColumnDimension();
     	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
-
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
     	
