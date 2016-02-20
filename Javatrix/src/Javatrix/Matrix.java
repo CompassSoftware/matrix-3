@@ -205,7 +205,9 @@ public class Matrix implements Cloneable
         return copyMatrix;
     }
     /**
-     * Generate matrix with random elements
+     * Generate matrix with random elements.
+     * @param m the input of Row of the matrix
+     * @param n the input of column of the matrix
      */
     public static Matrix random(int m, int n)
     {
