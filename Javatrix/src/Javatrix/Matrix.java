@@ -610,4 +610,88 @@ public class Matrix {
     	
     	return neg;
     }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param i1 Starting row index
+     * @param i2 Ending row index
+     * @param j1 Starting column index
+     * @param j2 Ending column index
+     */
+    public Matrix getMatrix(int i1, int i2, int j1, int j2)
+    {
+    	int rows = i2 - i1 + 1;
+    	int cols = j2 - j1 + 1;
+    	double[][] newArray = new double[rows][cols];
+    	for (int i = 0; i < rows; i++)
+    	{
+        	for (int j = 0; j < cols; j++)
+        	{
+        		newArray[i][j] = matArray[i1 + i][j1 + j];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param rows Rows to include in new matrix
+     * @param j1 Starting column index
+     * @param j2 Ending column index
+     */
+    public Matrix getMatrix(int[] rows, int j1, int j2)
+    {
+    	int cols = j2 - j1 + 1;
+    	double[][] newArray = new double[rows.length][cols];
+    	for (int i = 0; i < rows.length; i++)
+    	{
+        	for (int j = 0; j < cols; j++)
+        	{
+        		newArray[i][j] = matArray[rows[i]][j1 + j];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param i1 Starting row index
+     * @param i2 Ending row index
+     * @param cols Columns to include in new matrix
+     */
+    public Matrix getMatrix(int i1, int i2, int[] cols)
+    {
+    	int rows = i2 - i1 + 1;
+    	double[][] newArray = new double[rows][cols.length];
+    	for (int i = 0; i < rows; i++)
+    	{
+        	for (int j = 0; j < cols.length; j++)
+        	{
+        		newArray[i][j] = matArray[i1 + i][cols[j]];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param rows rows to include in new matrix
+     * @param cols columns to include in new matrix
+     */
+    public Matrix getMatrix(int[] rows, int[] cols)
+    {
+    	double[][] newArray = new double[rows.length][cols.length];
+    	for (int i = 0; i < rows.length; i++)
+    	{
+        	for (int j = 0; j < cols.length; j++)
+        	{
+        		newArray[i][j] = matArray[rows[i]][cols[j]];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
 }

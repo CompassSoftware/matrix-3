@@ -24,6 +24,13 @@ public class Testtrix {
 	b.print(9,4);
     }
     */
+	
+	static final private double[][] source ={
+			{0, 1, 2},
+			{3, 4, 5},
+			{6, 7, 8},
+			{9, 10, 11}
+			}; 
 
 	private PrintStream oldOut;
 	private ByteArrayOutputStream testOut;
@@ -60,12 +67,6 @@ public class Testtrix {
 	
 	@Test
 	public void testConstructFrom2DArray() {
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8},
-				{9, 10, 11}
-				};
 		double val = 15;
 		Matrix mat = new Matrix(source);
 		
@@ -103,14 +104,8 @@ public class Testtrix {
 	
 	@Test
 	public void testConstructFrom2DArrayFast() {
-		double[][] source = {
-				{0, 1, 2, 12},
-				{3, 4, 5, 13},
-				{6, 7, 8, 14},
-				{9, 10, 11, 15}
-				};
 		int n = 3;
-		int m = 4;
+		int m = 2;
 		double val = 15;
 		Matrix mat = new Matrix(source, n, m);
 		
@@ -126,8 +121,8 @@ public class Testtrix {
 		}
 		
 		// Check that changing matrix does not change original array
-		mat.set(2, 1, val);
-		assertNotEquals(mat.get(2, 1), source[2][1], 0);
+		mat.set(1, 1, val);
+		assertNotEquals(mat.get(2, 1), source[1][1], 0);
 	}
 	
 	@Test
@@ -191,74 +186,130 @@ public class Testtrix {
 	@Test
 	public void testPrint()
 	{
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8}
-				};
 		Matrix mat = new Matrix(source);
-		mat.print(4, 1);
+		mat.print(5, 1);
 		String output = testOut.toString();
-		assertEquals(" 0.0 1.0 2.0\n"
-				+ " 3.0 4.0 5.0\n"
-				+ " 6.0 7.0 8.0\n",
+		assertEquals("  0.0  1.0  2.0\n"
+				+ "  3.0  4.0  5.0\n"
+				+ "  6.0  7.0  8.0\n"
+				+ "  9.0 10.0 11.0\n",
 				output);
 	}
 	
 	@Test
 	public void testPrintOutputStream()
 	{
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8}
-				};
 		Matrix mat = new Matrix(source);
 		PrintWriter writer = new PrintWriter(testOut);
-		mat.print(writer, 4, 1);
+		mat.print(writer, 5, 1);
 		writer.flush();
 		String output = testOut.toString();
-		assertEquals(" 0.0 1.0 2.0\n"
-				+ " 3.0 4.0 5.0\n"
-				+ " 6.0 7.0 8.0\n",
+		assertEquals("  0.0  1.0  2.0\n"
+				+ "  3.0  4.0  5.0\n"
+				+ "  6.0  7.0  8.0\n"
+				+ "  9.0 10.0 11.0\n",
 				output);
 	}
 	
 	@Test
 	public void testPrintNumberFormat()
 	{
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8}
-				};
 		Matrix mat = new Matrix(source);
 		DecimalFormat format = new DecimalFormat("#0.0");
-		mat.print(format, 4);
+		mat.print(format, 5);
 		String output = testOut.toString();
-		assertEquals(" 0.0 1.0 2.0\n"
-				+ " 3.0 4.0 5.0\n"
-				+ " 6.0 7.0 8.0\n",
+		assertEquals("  0.0  1.0  2.0\n"
+				+ "  3.0  4.0  5.0\n"
+				+ "  6.0  7.0  8.0\n"
+				+ "  9.0 10.0 11.0\n",
 				output);
 	}
 	
 	@Test
 	public void testPrintNumberFormatOutputStream()
 	{
-		double[][] source = {
-				{0, 1, 2},
-				{3, 4, 5},
-				{6, 7, 8}
-				};
 		Matrix mat = new Matrix(source);
 		DecimalFormat format = new DecimalFormat("#0.0");
 		PrintWriter writer = new PrintWriter(testOut);
-		mat.print(writer, format, 4);
+		mat.print(writer, format, 5);
 		writer.flush();
 		String output = testOut.toString();
-		assertEquals(" 0.0 1.0 2.0\n"
-				+ " 3.0 4.0 5.0\n"
-				+ " 6.0 7.0 8.0\n",
+		assertEquals("  0.0  1.0  2.0\n"
+				+ "  3.0  4.0  5.0\n"
+				+ "  6.0  7.0  8.0\n"
+				+ "  9.0 10.0 11.0\n",
 				output);
+	}
+	
+	@Test
+	public void testGetMatrixRange()
+	{
+		Matrix mat = new Matrix(source);
+		int i1 = 0;
+		int i2 = 1;
+		int j1 = 0;
+		int j2 = 2;
+		int rows = i2 - i1 + 1;
+		int cols = j2 - j1 + 1;
+		Matrix mat1 = mat.getMatrix(i1, i2, j1, j2);
+		assertEquals(mat1.getRowDimension(), rows);
+		assertEquals(mat1.getColumnDimension(), cols);
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+			{
+				assertEquals(mat1.get(i, j), mat.get(i + i1, j + j1), 0);
+			}
+		}
+	}
+	
+	@Test
+	public void testGetMatrixSelectRows()
+	{
+		Matrix mat = new Matrix(source);
+		int[] rows = {0, 2};
+		int j1 = 0;
+		int j2 = 2;
+		Matrix mat1 = mat.getMatrix(rows, j1, j2);
+		for (int i = 0; i < rows.length; i++)
+		{
+			for (int j = 0; j <= j2 - j1; j++)
+			{
+				assertEquals(mat1.get(i, j), mat.get(rows[i], j + j1), 0);
+			}
+		}
+	}
+	
+	@Test
+	public void testGetMatrixSelectColumns()
+	{
+		Matrix mat = new Matrix(source);
+		int[] columns = {0, 2};
+		int i1 = 0;
+		int i2 = 2;
+		Matrix mat1 = mat.getMatrix(i1, i2, columns);
+		for (int i = 0; i <= i2 - i1; i++)
+		{
+			for (int j = 0; j < columns.length; j++)
+			{
+				assertEquals(mat1.get(i, j), mat.get(i + i1, columns[j]), 0);
+			}
+		}
+	}
+	
+	@Test
+	public void testGetMatrixSelect()
+	{
+		Matrix mat = new Matrix(source);
+		int[] rows = {1, 3};
+		int[] columns = {0, 2};
+		Matrix mat1 = mat.getMatrix(rows, columns);
+		for (int i = 0; i < rows.length; i++)
+		{
+			for (int j = 0; j < columns.length; j++)
+			{
+				assertEquals(mat1.get(i, j), mat.get(rows[i], columns[j]), 0);
+			}
+		}
 	}
 }
