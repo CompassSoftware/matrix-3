@@ -558,6 +558,96 @@ public class Matrix implements Cloneable
     	return this;
     }
     
+    /**
+     * norm1 calculates and returns the one norm. 
+     * The value that is the sum of the column with the greatest 
+     * sum of the absolute value of its elements.
+     * 
+     * @return double sum of the max column
+     */
+    public double norm1()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	double sum = 0;
+    	for (int i = 0; i < n; i++)
+    	{
+    		double s = 0;
+    		for (int j = 0; j < m; j++)
+    		{
+    			s += Math.abs(matArray[i][j]);
+    		}
+    		if (s > sum)
+    		{
+    			sum = s;
+    		}
+    	}
+		return sum;
+    	
+    }
+    
+    /**
+     * normF calculates and returns the Froebenius norm. 
+     * The value that is the square root of the sum of the squares  
+     * of all elements.
+     * 
+     * @return double square root of the sum of the squares
+     */
+    public double normF()
+    {
+    	
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	double matTemp = 0;
+    	double temp = 0;
+    	double result = 0;
+    	for (int i = 0; i < m; i++) 
+    	{
+    		for (int j = 0; j < n; j++) 
+    		{
+    			result = Math.abs(result);
+    			matTemp = Math.abs(matArray[i][j]);
+    			if (matTemp > result)
+    			{
+    				temp = (matTemp > 0.0? result/matTemp: 0.0);
+    				result = matTemp;
+    			}
+    			else temp = (result > 0.0? matTemp/result: 0.0);
+    			temp = result * Math.sqrt(1.0 + temp * temp);
+            }
+    	}
+		return temp;
+    	
+    }
+   /**
+    * normInf calculates and returns the infinity norm. 
+    * The value that is the sum of the row with the greatest 
+    * sum of the absolute value of its elements.
+    * 
+    * @return double sum of the max row
+    */
+    public double normInf()
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	
+    	double sum = 0;
+    	for (int i = 0; i < m; i++)
+    	{
+    		double s = 0;
+    		for (int j = 0; j < n; j++)
+    		{
+    			s += Math.abs(matArray[i][j]);
+    		}
+    		if (s > sum)
+    		{
+    			sum = s;
+    		}
+    	}
+		return sum;
+    	
+    }
     
     /**Joseph O'Neill
      * C = A + B

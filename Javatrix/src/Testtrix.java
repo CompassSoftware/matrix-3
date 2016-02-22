@@ -506,6 +506,45 @@ public class Testtrix {
 		assertArrayEquals(ans.getArray(),A.getArray());
 	}
 
+	//norm1 test
+	@Test
+	public void testNorm1()
+	{
+		double [][]AArray = {{5,4,3,2,1},
+	 			 			 {6,5,4,3,2},
+	 			 			 {-5,0,5,10,15},
+	 			 			 {9,2,4,5,11},
+	 			 			 {1,2,3,4,5}};
+		Matrix A = new Matrix(AArray);
+		double result = A.norm1();
+		assertEquals(result, 34, 0);
+	}
+	
+	//normF test
+	@Test
+	public void testNormF()
+	{
+		double [][]AArray = {{1,2,3,4,5},
+							 {0,2,0,4,5}};
+		Matrix A = new Matrix(AArray);
+		double result = A.normF();
+		assertEquals(result, 10, 0);
+	}
+	
+	//norm1 test
+		@Test
+		public void testNormInf()
+		{
+			double [][]AArray = {{5,4,3,2,1},
+		 			 			 {6,5,4,3,2},
+		 			 			 {-5,0,5,10,15},
+		 			 			 {9,2,4,5,11},
+		 			 			 {1,2,3,4,5}};
+			Matrix A = new Matrix(AArray);
+			double result = A.norm1();
+			assertEquals(result, 35, 0);
+		}
+	
 	//Joseph O'Neill
 	@Test
 	public void testPlusEquals()
