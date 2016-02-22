@@ -3,7 +3,8 @@ import java.io.PrintWriter;
 import java.lang.IllegalArgumentException;
 import java.text.NumberFormat;
 
-public class Matrix {
+public class Matrix implements Cloneable
+{
 
     private double[][] matArray;
     
@@ -67,6 +68,33 @@ public class Matrix {
         }        
     }
     
+   /**Joseph O'Neill
+    * Constructs a matrix from a one-dimensional packed array
+    *  
+    *  
+    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
+    * @param m - Number of rows.
+    * 
+    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
+    */
+    
+    public Matrix(double vals[], int m) throws IllegalArgumentException
+    {
+        if (m == 0 || vals.length%m != 0)
+        {
+        	throw new IllegalArgumentException("Array length must be a multiple of m.");
+        }
+        int n = vals.length/m;
+        matArray = new double[m][n];
+        for (int a = 0; a < m; a++) 
+        {
+        	for (int b = 0; b < n; b++) 
+        	{
+        		matArray[a][b] = vals[a+b*m];
+            }
+        }
+    }
+    
     /**
      * Constructs a m-by-n matrix of s.
      *
@@ -90,7 +118,7 @@ public class Matrix {
             System.out.println("Array size must not be negative");
         }        
     }
-    
+
     /**
      * Gets the value at i, j
      *
@@ -99,8 +127,8 @@ public class Matrix {
      * @return the value at i, j
      */
     public double get(int i, int j)
-    {
-        return matArray[i][j];
+    {    	
+    	return matArray[i][j];
     }
     
     /**
@@ -176,7 +204,24 @@ public class Matrix {
     	
         return copyMatrix;
     }
-
+    /**
+     * Generate matrix with random elements.
+     * @param m the input of Row of the matrix
+     * @param n the input of column of the matrix
+     */
+    public static Matrix random(int m, int n)
+    {
+    	Matrix A = new Matrix(m, n);
+    	for (int i = 0; i < m; i++)
+    	{
+    		for (int j = 0; j < n; j++)
+    		{
+    			A.set(i, j, Math.random());
+    	
+    		}
+    	}
+    	return A;
+    }
     /**
      * Print matrix
      * @param w Column width
@@ -258,32 +303,16 @@ public class Matrix {
     	}
     	writer.print(output);
     }
-    
-   /**Joseph O'Neill
-    * Constructs a matrix from a one-dimensional packed array
-    *  
-    *  
-    * @param vals - One-dimensional array of doubles, packed by columns (ala Fortran).
-    * @param m - Number of rows.
-    * 
-    * @throws java.lang.IllegalArgumentException - Array length must be a multiple of m.
-    */
-    
-    public Matrix(double vals[], int m)
+
+    /**
+     * Clones the Matrix object.
+     * 
+     * @return Matrix A clone of the matrix.
+     */
+    public Object clone() throws CloneNotSupportedException
     {
-        if (m == 0 || vals.length%m != 0)
-        {
-        	throw new IllegalArgumentException("Array length must be a multiple of m.");
-        }
-        int cols = vals.length;
-        matArray = new double[m][cols];
-        for (int a = 0; a < m; a++) 
-        {
-        	for (int b = 0; b < cols; b++) 
-        	{
-        		matArray[a][b] = vals[a+b*m];
-            }
-        }
+    	//return new Matrix(matArray);
+    	return super.clone();
     }
     
     /**Joseph O'Neill
@@ -350,17 +379,6 @@ public class Matrix {
     		}
     	}
     	return RPC;
-    }
-    
-    /**
-     * Clones the Matrix object.
-     * 
-     * @return Matrix A clone of the matrix.
-     */
-    public Matrix clone()
-    {
-    	Matrix newMat = new Matrix(matArray);
-    	return newMat;
     }
     
     /** Joseph O'Neill
@@ -449,16 +467,7 @@ public class Matrix {
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	Matrix minusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -487,16 +496,7 @@ public class Matrix {
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
     	
@@ -524,16 +524,7 @@ public class Matrix {
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
 
-    	}
-    	
     	Matrix plusThis = new Matrix(m,n);
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -562,15 +553,6 @@ public class Matrix {
     {
     	int m = getRowDimension();
     	int n = getColumnDimension();
-    	
-    	int x = B.getRowDimension();
-    	int y = B.getColumnDimension();
-    	
-    	if ((m != x) && (n != y))
-    	{
-        	throw new IllegalArgumentException("Dimensions of Matrices must be equal");
-
-    	}
     	
     	double AArray[][] = getArray();
     	double BArray[][] = B.getArray();
@@ -693,5 +675,77 @@ public class Matrix {
         	}
     	}
     	return new Matrix(newArray);
+    }
+    
+    /**
+     * Multiplies the matrix by the scalar given.
+     * 
+     * @param s double
+     * @return 
+     */
+    public Matrix times(double s)
+    {
+    	Matrix mat = new Matrix(this.matArray); 
+    	for (int i = 0; i < mat.getArray().length; i++)
+    	{
+    		for (int j = 0; j < mat.getArray()[0].length; j++)
+    		{
+    			mat.getArray()[i][j] *= s;
+    		}
+    	}
+    	return mat;
+    }
+
+    /**
+     * Multiplies the matrix by the scalar given.
+     * 
+     * @param s double
+     * @return 
+     */
+    public Matrix timesEquals(double s)
+    {
+    	for (int i = 0; i < matArray.length; i++)
+    	{
+    		for (int j = 0; j < matArray[0].length; j++)
+    		{
+    			matArray[i][j] *= s;
+    		}
+    	}
+    	return this;
+    }
+    
+    /**
+     * Multiplies the matrix by the matrix given.
+     * 
+     * @param B Matrix
+     * @return 
+     */
+    public Matrix times(Matrix B) throws IllegalArgumentException
+    {
+    	int m = getRowDimension();
+    	int n = getColumnDimension();
+    	int p = B.getRowDimension();
+    	int q = B.getColumnDimension();
+    	int sum = 0;
+    	
+    	if ((n != p))
+    	{
+        	throw new IllegalArgumentException("Matrix inner dimensions must agree.");
+    	}
+    	
+		Matrix mat = new Matrix(matArray.length, B.getArray()[0].length);
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < q; j++)
+			{
+				for (int k = 0; k < p; k++)
+				{
+					sum += matArray[i][k] * B.getArray()[k][j];
+				}
+				mat.matArray[i][j] = sum;
+				sum = 0;
+			}
+		}
+    	return mat;
     }
 }
