@@ -1,7 +1,12 @@
 package Javatrix;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.IllegalArgumentException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Matrix implements Cloneable
 {
@@ -204,6 +209,7 @@ public class Matrix implements Cloneable
     	
         return copyMatrix;
     }
+    
     /**
      * Generate matrix with random elements.
      * @param m the input of Row of the matrix
@@ -222,6 +228,7 @@ public class Matrix implements Cloneable
     	}
     	return A;
     }
+    
     /**
      * Print matrix
      * @param w Column width
@@ -305,14 +312,54 @@ public class Matrix implements Cloneable
     }
 
     /**
+     * Read matrix from input stream
+     * @param input BufferedReader for input
+     */
+    public static Matrix read(BufferedReader input) throws IOException
+    {
+    	ArrayList<ArrayList<Double>> rowList = new ArrayList<ArrayList<Double>>();
+    	ArrayList<Double> row = new ArrayList<Double>();
+    	String line = input.readLine();
+    	Scanner scan;
+    	while (line != null)
+    	{
+    		scan = new Scanner(line);
+    		row = new ArrayList<Double>();
+    		while (true)
+    		{
+    			try
+    			{
+    				double num = scan.nextDouble();
+    				row.add(num);
+    			}
+    			catch (NoSuchElementException e)
+    			{
+    				break;
+    			}
+    		}
+    		rowList.add(row);
+    		line = input.readLine();
+    	}
+    	double[][] newArray = new double[rowList.size()][row.size()]; 
+    	for (int i = 0; i < rowList.size(); i++)
+    	{
+    		for (int j = 0; j < row.size(); j++)
+    		{
+    			newArray[i][j] = rowList.get(i).get(j);
+    		}
+    	}
+    	return new Matrix(newArray);
+    }
+
+    /**
      * Clones the Matrix object.
      * 
      * @return Matrix A clone of the matrix.
      */
-    public Matrix clone() //throws CloneNotSupportedException
+    public Object clone() throws CloneNotSupportedException
     {
-    	return new Matrix(matArray);
-    	//return super.clone();
+    	//return new Matrix(matArray);
+    	return super.clone();
     }
     
     /**Joseph O'Neill
@@ -681,6 +728,90 @@ public class Matrix implements Cloneable
     	}
     	
     	return neg;
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param i1 Starting row index
+     * @param i2 Ending row index
+     * @param j1 Starting column index
+     * @param j2 Ending column index
+     */
+    public Matrix getMatrix(int i1, int i2, int j1, int j2)
+    {
+    	int rows = i2 - i1 + 1;
+    	int cols = j2 - j1 + 1;
+    	double[][] newArray = new double[rows][cols];
+    	for (int i = 0; i < rows; i++)
+    	{
+        	for (int j = 0; j < cols; j++)
+        	{
+        		newArray[i][j] = matArray[i1 + i][j1 + j];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param rows Rows to include in new matrix
+     * @param j1 Starting column index
+     * @param j2 Ending column index
+     */
+    public Matrix getMatrix(int[] rows, int j1, int j2)
+    {
+    	int cols = j2 - j1 + 1;
+    	double[][] newArray = new double[rows.length][cols];
+    	for (int i = 0; i < rows.length; i++)
+    	{
+        	for (int j = 0; j < cols; j++)
+        	{
+        		newArray[i][j] = matArray[rows[i]][j1 + j];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param i1 Starting row index
+     * @param i2 Ending row index
+     * @param cols Columns to include in new matrix
+     */
+    public Matrix getMatrix(int i1, int i2, int[] cols)
+    {
+    	int rows = i2 - i1 + 1;
+    	double[][] newArray = new double[rows][cols.length];
+    	for (int i = 0; i < rows; i++)
+    	{
+        	for (int j = 0; j < cols.length; j++)
+        	{
+        		newArray[i][j] = matArray[i1 + i][cols[j]];
+        	}
+    	}
+    	return new Matrix(newArray);
+    }
+    
+    /**
+     * Creates a matrix from a subsection of this matrix
+     *
+     * @param rows rows to include in new matrix
+     * @param cols columns to include in new matrix
+     */
+    public Matrix getMatrix(int[] rows, int[] cols)
+    {
+    	double[][] newArray = new double[rows.length][cols.length];
+    	for (int i = 0; i < rows.length; i++)
+    	{
+        	for (int j = 0; j < cols.length; j++)
+        	{
+        		newArray[i][j] = matArray[rows[i]][cols[j]];
+        	}
+    	}
+    	return new Matrix(newArray);
     }
     
     /**
