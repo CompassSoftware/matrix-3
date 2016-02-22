@@ -601,4 +601,172 @@ public class Testtrix {
 		Matrix mat3 = mat1.times(mat2);
 		assertArrayEquals(expected, mat3.getArray());
 	}
+	
+	@Test
+	public void testArrayTimes()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		Matrix C = A.arrayTimes(B);
+		assertEquals(A.getColumnDimension(), C.getColumnDimension());
+		assertEquals(A.getRowDimension(), C.getRowDimension());
+    	for (int i = 0; i < C.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < C.getColumnDimension(); j++)
+        	{
+        		assertEquals(C.get(i, j), source[i][j] * source[i][j], 0);
+        	}
+    	}
+	}
+	
+	@Test
+	public void testArrayTimesEquals()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		A.arrayTimesEquals(B);
+    	for (int i = 0; i < A.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < A.getColumnDimension(); j++)
+        	{
+        		assertEquals(A.get(i, j), source[i][j] * source[i][j], 0);
+        	}
+    	}
+	}
+	
+	@Test
+	public void testArrayRightDivide()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		Matrix C = A.arrayRightDivide(B);
+		assertEquals(A.getColumnDimension(), C.getColumnDimension());
+		assertEquals(A.getRowDimension(), C.getRowDimension());
+    	for (int i = 0; i < C.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < C.getColumnDimension(); j++)
+        	{
+        		if (source[i][j] != 0)
+        		{
+        			assertEquals(C.get(i, j), 1, 0);
+        		}
+        		else
+        		{
+        			assertEquals(C.get(i, j), Double.NaN, 0);
+        		}
+        	}
+    	}
+		A = new Matrix(source);
+		B = new Matrix(4, 3, 2);
+		C = A.arrayRightDivide(B);
+		assertEquals(A.getColumnDimension(), C.getColumnDimension());
+		assertEquals(A.getRowDimension(), C.getRowDimension());
+    	for (int i = 0; i < C.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < C.getColumnDimension(); j++)
+        	{
+        		assertEquals(C.get(i, j), source[i][j] / 2, 0);
+        	}
+    	}
+	}
+	
+	@Test
+	public void testArrayRightDivideEquals()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		A.arrayRightDivideEquals(B);
+    	for (int i = 0; i < A.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < A.getColumnDimension(); j++)
+        	{
+        		if (source[i][j] != 0)
+        		{
+        			assertEquals(A.get(i, j), 1, 0);
+        		}
+        		else
+        		{
+        			assertEquals(A.get(i, j), Double.NaN, 0);
+        		}
+        	}
+    	}
+		A = new Matrix(source);
+		B = new Matrix(4, 3, 2);
+		A.arrayRightDivideEquals(B);
+    	for (int i = 0; i < A.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < A.getColumnDimension(); j++)
+        	{
+        		assertEquals(A.get(i, j), source[i][j] / 2, 0);
+        	}
+    	}
+	}
+	
+	@Test
+	public void testArrayLeftDivide()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		Matrix C = A.arrayLeftDivide(B);
+		assertEquals(A.getColumnDimension(), C.getColumnDimension());
+		assertEquals(A.getRowDimension(), C.getRowDimension());
+    	for (int i = 0; i < C.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < C.getColumnDimension(); j++)
+        	{
+        		if (source[i][j] != 0)
+        		{
+        			assertEquals(C.get(i, j), 1, 0);
+        		}
+        		else
+        		{
+        			assertEquals(C.get(i, j), Double.NaN, 0);
+        		}
+        	}
+    	}
+		A = new Matrix(source);
+		B = new Matrix(4, 3, 2);
+		C = A.arrayLeftDivide(B);
+		assertEquals(A.getColumnDimension(), C.getColumnDimension());
+		assertEquals(A.getRowDimension(), C.getRowDimension());
+    	for (int i = 0; i < C.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < C.getColumnDimension(); j++)
+        	{
+        		assertEquals(C.get(i, j), 2 / source[i][j], 0);
+        	}
+    	}
+	}
+	
+	@Test
+	public void testArrayLeftDivideEquals()
+	{
+		Matrix A = new Matrix(source);
+		Matrix B = new Matrix(source);
+		A.arrayLeftDivideEquals(B);
+    	for (int i = 0; i < A.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < A.getColumnDimension(); j++)
+        	{
+        		if (source[i][j] != 0)
+        		{
+        			assertEquals(A.get(i, j), 1, 0);
+        		}
+        		else
+        		{
+        			assertEquals(A.get(i, j), Double.NaN, 0);
+        		}
+        	}
+    	}
+		A = new Matrix(source);
+		B = new Matrix(4, 3, 2);
+		A.arrayLeftDivideEquals(B);
+    	for (int i = 0; i < A.getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < A.getColumnDimension(); j++)
+        	{
+        		assertEquals(A.get(i, j), 2 / source[i][j], 0);
+        	}
+    	}
+	}
 }

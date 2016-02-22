@@ -795,4 +795,79 @@ public class Matrix implements Cloneable
 		}
     	return mat;
     }
+    
+    public Matrix arrayTimes(Matrix B)
+    {
+    	Matrix C = new Matrix(getRowDimension(), getColumnDimension());
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		C.set(i, j, get(i, j) * B.get(i, j));
+        	}
+    	}
+    	return C;
+    }
+    
+    public Matrix arrayTimesEquals(Matrix B)
+    {
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		set(i, j, get(i, j) * B.get(i, j));
+        	}
+    	}
+    	return this;
+    }
+    
+    public Matrix arrayRightDivide(Matrix B)
+    {
+    	Matrix C = new Matrix(getRowDimension(), getColumnDimension());
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		C.set(i, j, get(i, j) / B.get(i, j));
+        	}
+    	}
+    	return C;
+    }
+    
+    public Matrix arrayRightDivideEquals(Matrix B)
+    {
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		set(i, j, get(i, j) / B.get(i, j));
+        	}
+    	}
+    	return this;
+    }
+    
+    public Matrix arrayLeftDivide(Matrix B)
+    {
+    	Matrix C = new Matrix(getRowDimension(), getColumnDimension());
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		C.set(i, j, B.get(i, j) / get(i, j));
+        	}
+    	}
+    	return C;
+    }
+    
+    public Matrix arrayLeftDivideEquals(Matrix B)
+    {
+    	for (int i = 0; i < getRowDimension(); i++)
+    	{
+        	for (int j = 0; j < getColumnDimension(); j++)
+        	{
+        		set(i, j, B.get(i, j) / get(i, j));
+        	}
+    	}
+    	return this;
+    }
 }
