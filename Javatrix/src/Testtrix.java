@@ -1,9 +1,12 @@
 import Javatrix.*;
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.text.DecimalFormat;
 
 import org.junit.Test;
@@ -246,6 +249,27 @@ public class Testtrix {
 				+ "  9.0 10.0 11.0\n",
 				output);
 	}
+	
+	@Test
+	public void testRead()
+	{
+		String input = "  0.0  1.0  2.0\n"
+				+ "  3.0  4.0  5.0\n"
+				+ "  6.0  7.0  8.0\n"
+				+ "  9.0 10.0 11.0\n";
+		BufferedReader reader = new BufferedReader(new StringReader(input));
+		Matrix mat;
+		try {
+			mat = Matrix.read(reader);
+		} catch (IOException e) {
+			fail("IOException thrown");
+			return;
+		}
+		assertEquals(mat.getRowDimension(), 4);
+		assertEquals(mat.getColumnDimension(), 3);
+		assertArrayEquals(mat.getArray(), source);
+	}
+	
 	@Test
 	public void testGetMatrixRange()
 	{

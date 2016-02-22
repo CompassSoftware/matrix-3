@@ -1,7 +1,12 @@
 package Javatrix;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.IllegalArgumentException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Matrix implements Cloneable
 {
@@ -204,6 +209,7 @@ public class Matrix implements Cloneable
     	
         return copyMatrix;
     }
+    
     /**
      * Generate matrix with random elements.
      * @param m the input of Row of the matrix
@@ -222,6 +228,7 @@ public class Matrix implements Cloneable
     	}
     	return A;
     }
+    
     /**
      * Print matrix
      * @param w Column width
@@ -302,6 +309,46 @@ public class Matrix implements Cloneable
     		output += '\n';
     	}
     	writer.print(output);
+    }
+
+    /**
+     * Read matrix from input stream
+     * @param input BufferedReader for input
+     */
+    public static Matrix read(BufferedReader input) throws IOException
+    {
+    	ArrayList<ArrayList<Double>> rowList = new ArrayList<ArrayList<Double>>();
+    	ArrayList<Double> row = new ArrayList<Double>();
+    	String line = input.readLine();
+    	Scanner scan;
+    	while (line != null)
+    	{
+    		scan = new Scanner(line);
+    		row = new ArrayList<Double>();
+    		while (true)
+    		{
+    			try
+    			{
+    				double num = scan.nextDouble();
+    				row.add(num);
+    			}
+    			catch (NoSuchElementException e)
+    			{
+    				break;
+    			}
+    		}
+    		rowList.add(row);
+    		line = input.readLine();
+    	}
+    	double[][] newArray = new double[rowList.size()][row.size()]; 
+    	for (int i = 0; i < rowList.size(); i++)
+    	{
+    		for (int j = 0; j < row.size(); j++)
+    		{
+    			newArray[i][j] = rowList.get(i).get(j);
+    		}
+    	}
+    	return new Matrix(newArray);
     }
 
     /**
